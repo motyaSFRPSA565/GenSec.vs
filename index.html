@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GENSEC.vs — КИБЕРБЕЗОПАСНОСТЬ ФБР (ИИ)</title>
+    <title>GENSEC.vs — КИБЕРБЕЗОПАСНОСТЬ ФБР</title>
     <style>
-        /* Стили ТОЧНО такие же, как в прошлой версии — 
-           я их не менял, чтобы сохранить весь твой дизайн */
         * {
             margin: 0;
             padding: 0;
@@ -15,8 +13,8 @@
         }
 
         body {
-            background: linear-gradient(145deg, #0a0f1a 0%, #0f1a2f 100%);
-            color: #e0e0e0;
+            background: linear-gradient(145deg, #f0f4ff 0%, #ffffff 100%);
+            color: #111;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -25,6 +23,7 @@
             position: relative;
         }
 
+        /* Сетка как в PAYDAY 2 (светлая) */
         body::before {
             content: "";
             position: fixed;
@@ -43,7 +42,7 @@
         .gensec-terminal {
             max-width: 1000px;
             width: 100%;
-            background: rgba(0, 5, 15, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(4px);
             border: 3px solid #0044ff;
             box-shadow: 0 0 30px #0044ff88, 0 0 0 2px #ff2222 inset;
@@ -71,7 +70,7 @@
             border-top: 2px solid #ff2222;
             padding: 15px 10px;
             margin-bottom: 25px;
-            background: linear-gradient(90deg, #001122, #220000);
+            background: linear-gradient(90deg, #e0e8ff, #ffe0e0);
         }
 
         .logo-area {
@@ -81,14 +80,15 @@
         }
 
         .logo-avatar {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             border: 3px solid #0044ff;
             box-shadow: 0 0 15px #0044ff, 0 0 0 2px #ff2222;
-            background: #000;
+            background: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
 
         .logo-avatar img {
@@ -99,10 +99,10 @@
         }
 
         .logo-text {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 900;
             letter-spacing: 5px;
-            text-shadow: 0 0 10px #0044ff, 0 0 20px #ff2222;
+            text-shadow: 2px 2px 0 #0044ff, -2px -2px 0 #ff2222;
         }
 
         .logo-text span:first-child {
@@ -116,7 +116,7 @@
         .status-badge {
             padding: 8px 20px;
             border: 2px solid #0044ff;
-            background: #000;
+            background: #fff;
             color: #0044ff;
             font-weight: bold;
             text-transform: uppercase;
@@ -129,14 +129,14 @@
             margin: 20px 0 30px;
             font-size: 24px;
             letter-spacing: 3px;
-            color: #aaa;
+            color: #333;
             border-bottom: 2px solid #0044ff;
             border-top: 2px solid #ff2222;
             padding: 15px;
             text-transform: uppercase;
             font-weight: bold;
-            background: linear-gradient(90deg, #001122, #220000);
-            text-shadow: 0 0 5px #0044ff, 0 0 10px #ff2222;
+            background: linear-gradient(90deg, #e0e8ff, #ffe0e0);
+            text-shadow: 1px 1px 0 #0044ff, -1px -1px 0 #ff2222;
         }
 
         .main-grid {
@@ -148,7 +148,7 @@
 
         .panel {
             border: 2px solid #0044ff;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.8);
             padding: 20px;
             box-shadow: 0 0 15px #0044ff88, 0 0 0 1px #ff2222 inset;
         }
@@ -173,14 +173,14 @@
             border: 2px solid #0044ff;
             padding: 15px;
             text-align: center;
-            background: #000;
+            background: #fff;
         }
 
         .stat-value {
             font-size: 32px;
             font-weight: bold;
             color: #0044ff;
-            text-shadow: 0 0 10px #0044ff;
+            text-shadow: 2px 2px 0 #ff2222;
         }
 
         .stat-label {
@@ -199,7 +199,7 @@
         .log-list li {
             padding: 10px;
             border-bottom: 1px solid #0044ff55;
-            color: #aaa;
+            color: #333;
             font-size: 12px;
             display: flex;
             gap: 10px;
@@ -219,7 +219,7 @@
             padding: 15px;
             margin: 10px 0;
             border: 2px solid #0044ff;
-            background: #000;
+            background: #fff;
             color: #0044ff;
             font-size: 16px;
             font-weight: bold;
@@ -232,7 +232,7 @@
 
         .action-button:hover {
             background: #0044ff;
-            color: #000;
+            color: #fff;
             border-color: #ff2222;
             box-shadow: 0 0 20px #ff2222;
         }
@@ -241,7 +241,7 @@
             border: 2px solid #ff2222;
             padding: 15px;
             margin: 20px 0;
-            background: #220000;
+            background: #ffe0e0;
             color: #ff2222;
             text-align: center;
             font-weight: bold;
@@ -263,9 +263,9 @@
         .command-input input {
             flex: 1;
             padding: 15px;
-            background: #000;
+            background: #fff;
             border: 2px solid #0044ff;
-            color: #0f0;
+            color: #111;
             font-size: 16px;
             font-family: 'Courier New', monospace;
         }
@@ -277,7 +277,7 @@
 
         .command-input button {
             padding: 15px 30px;
-            background: #000;
+            background: #fff;
             border: 2px solid #ff2222;
             color: #ff2222;
             font-weight: bold;
@@ -286,16 +286,16 @@
 
         .command-input button:hover {
             background: #ff2222;
-            color: #000;
+            color: #fff;
         }
 
         .response-area {
             border: 2px solid #0044ff;
             padding: 20px;
             margin: 20px 0;
-            background: #000;
+            background: #fff;
             min-height: 150px;
-            color: #0f0;
+            color: #111;
             font-family: 'Courier New', monospace;
             white-space: pre-wrap;
         }
@@ -307,7 +307,8 @@
             border-top: 2px solid #0044ff;
             border-bottom: 2px solid #ff2222;
             font-size: 12px;
-            color: #aaa;
+            color: #333;
+            background: #f5f5f5;
         }
     </style>
 </head>
@@ -316,7 +317,7 @@
         <div class="header">
             <div class="logo-area">
                 <div class="logo-avatar">
-                    <img src="Gensek.webp" alt="GENSEC" onerror="this.src='https://via.placeholder.com/60x60/0044ff/ff2222?text=G'">
+                    <img src="Gensek.webp" alt="GENSEC" onerror="this.src='https://via.placeholder.com/80x80/ffffff/0044ff?text=GS'">
                 </div>
                 <div class="logo-text">
                     <span>GEN</span><span>SEC</span>
@@ -366,19 +367,15 @@
         </div>
 
         <div class="panel">
-            <h2>⚡ ТЕРМИНАЛ УПРАВЛЕНИЯ (ИИ)</h2>
+            <h2>⚡ ТЕРМИНАЛ УПРАВЛЕНИЯ</h2>
             
             <div class="command-input">
-                <input type="text" id="commandInput" placeholder="Введите команду для ИИ..." onkeypress="if(event.key==='Enter') sendToAI()">
+                <input type="text" id="commandInput" placeholder="Введите команду..." onkeypress="if(event.key==='Enter') sendToAI()">
                 <button onclick="sendToAI()">ОТПРАВИТЬ</button>
             </div>
 
             <div class="response-area" id="responseArea">
                 > GENSEC.vs ожидает команд...
-            </div>
-
-            <div style="font-size: 12px; color: #ff2222; text-align: center; margin-top: 10px;">
-                ⚡ Работает через OpenRouter (бесплатные запросы: 10/день)
             </div>
         </div>
 
@@ -388,66 +385,76 @@
     </div>
 
     <script>
-// Функция отправки команды в Cloudflare AI
-async function sendToAI() {
-    const input = document.getElementById('commandInput');
-    const command = input.value.trim();
-    if (!command) return;
+        // Функция отправки команды в Cloudflare AI
+        async function sendToAI() {
+            const input = document.getElementById('commandInput');
+            const command = input.value.trim();
+            if (!command) return;
 
-    const responseArea = document.getElementById('responseArea');
-    responseArea.innerHTML = '⏳ Обработка запроса...';
+            const responseArea = document.getElementById('responseArea');
+            responseArea.innerHTML = '⏳ Обработка запроса...';
 
-    addLog(`Команда: ${command}`, 'ОТПРАВЛЕНО');
+            addLog(`Команда: ${command}`, 'ОТПРАВЛЕНО');
 
-    try {
-        // Отправляем запрос в Cloudflare AI
-        const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/8c0f1b8362ba9342cc15bd60b2362453/ai/run/@cf/meta/llama-2-7b-chat-int8`, {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer CqmAJj_6ygvaiWWevbHeCQjc3afYj3GZYHrTsYv-',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                messages: [
-                    {
-                        role: 'system',
-                        content: 'Ты — GENSEC.vs, система кибербезопасности ФБР. Отвечай кратко, по-военному. Твоя задача — защищать SAnet.OS от хакеров.'
+            try {
+                const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/8c0f1b8362ba9342cc15bd60b2362453/ai/run/@cf/meta/llama-2-7b-chat-int8`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer CqmAJj_6ygvaiWWevbHeCQjc3afYj3GZYHrTsYv-',
+                        'Content-Type': 'application/json'
                     },
-                    {
-                        role: 'user',
-                        content: command
-                    }
-                ]
-            })
-        });
+                    body: JSON.stringify({
+                        messages: [
+                            {
+                                role: 'system',
+                                content: 'Ты — GENSEC.vs, система кибербезопасности ФБР. Отвечай кратко, по-военному. Твоя задача — защищать SAnet.OS от хакеров.'
+                            },
+                            {
+                                role: 'user',
+                                content: command
+                            }
+                        ]
+                    })
+                });
 
-        const data = await response.json();
-        const aiResponse = data.result.response;
-        
-        responseArea.innerHTML = `> ${aiResponse}`;
-        addLog(`Ответ ИИ: ${aiResponse.substring(0, 50)}...`, 'ПОЛУЧЕНО');
+                const data = await response.json();
+                const aiResponse = data.result.response;
+                
+                responseArea.innerHTML = `> ${aiResponse}`;
+                addLog(`Ответ ИИ: ${aiResponse.substring(0, 50)}...`, 'ПОЛУЧЕНО');
 
-    } catch (error) {
-        responseArea.innerHTML = '❌ Ошибка связи. Использую резервный режим.\n\n' + getFallbackResponse(command);
-        addLog('Ошибка Cloudflare', 'РЕЗЕРВ');
-    }
+            } catch (error) {
+                responseArea.innerHTML = '❌ Ошибка связи. Использую резервный режим.\n\n' + getFallbackResponse(command);
+                addLog('Ошибка Cloudflare', 'РЕЗЕРВ');
+            }
 
-    input.value = '';
-}
+            input.value = '';
+        }
 
-        // Резервные ответы (если OpenRouter недоступен)
+        // Резервные ответы
         function getFallbackResponse(cmd) {
             const lower = cmd.toLowerCase();
+            
             if (lower.includes('статус')) {
-                return '> СТАТУС GENSEC.vs\n─────────────────────\n🟢 СИСТЕМЫ: АКТИВНЫ\n🔴 АТАК ОТРАЖЕНО: 47\n🎭 ДЕЗАКТИВАЦИЙ: 3\n🛡️ IP В БАНЕ: 128\n─────────────────────\nГотов к выполнению команд.';
+                return '🟢 СТАТУС GENSEC.vs\n─────────────────────\nСИСТЕМЫ: АКТИВНЫ\nАТАК ОТРАЖЕНО: 47\nДЕЗАКТИВАЦИЙ: 3\nIP В БАНЕ: 128';
             }
-            if (lower.includes('дез') || lower.includes('деза')) {
-                return '> ЗАПУСК ДЕЗИНФОРМАЦИИ\n─────────────────────\nЦель: HACKnet.OS\nТема: ' + cmd.replace('деза', '').trim() + '\n─────────────────────\n✅ ДЕЗА ОТПРАВЛЕНА';
+            if (lower.includes('деза') || lower.includes('дезинформация')) {
+                return '🎭 ДЕЗИНФОРМАЦИЯ\n─────────────────────\nЦель: HACKnet.OS\nТема: ' + cmd.replace('деза', '').trim() + '\n✅ ДЕЗА ОТПРАВЛЕНА';
             }
             if (lower.includes('блок')) {
-                return '> БЛОКИРОВКА АТАКИ\n─────────────────────\nИсточник: HACKnet.OS (84.237.84.237)\nМетод: Брутфорс\n─────────────────────\n✅ АТАКА БЛОКИРОВАНА';
+                return '🛡️ БЛОКИРОВКА АТАКИ\n─────────────────────\nИсточник: HACKnet.OS\n✅ АТАКА БЛОКИРОВАНА';
             }
-            return '> КОМАНДА ПРИНЯТА\n─────────────────────\n' + cmd + '\n─────────────────────\n✅ Выполнено. Режим: резервный.';
+            if (lower.includes('регинальд')) {
+                return '👤 АГЕНТ РЕГИНАЛЬД\n─────────────────────\nСтатус: ПОД КОНТРОЛЕМ\nСвязь: УСТОЙЧИВАЯ';
+            }
+            if (lower.includes('драго')) {
+                return '🏛️ МЭР ДРАГО\n─────────────────────\nДосье: ЧИСТО\nСтатус: ПОД ЗАЩИТОЙ';
+            }
+            if (lower.includes('малас')) {
+                return '⚡ ДИРЕКТОР МАЛАС\n─────────────────────\nСтатус: В КАБИНЕТЕ\nДоступ: МАКСИМАЛЬНЫЙ';
+            }
+            
+            return '✅ КОМАНДА ПРИНЯТА\n─────────────────────\n' + cmd + '\n─────────────────────\nВыполнено.';
         }
 
         // Логи
