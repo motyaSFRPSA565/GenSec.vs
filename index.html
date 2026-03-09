@@ -385,51 +385,56 @@
     </div>
 
     <script>
-        // Функция отправки команды в Cloudflare AI
-        async function sendToAI() {
-            const input = document.getElementById('commandInput');
-            const command = input.value.trim();
-            if (!command) return;
+        
+        // Функция отправки команды в Cloudflare AI (через прокси)
+async function sendToAI() {
+    const input = document.getElementById('commandInput');
+    const command = input.value.trim();
+    if (!command) return;
 
-            const responseArea = document.getElementById('responseArea');
-            responseArea.innerHTML = '⏳ Обработка запроса...';
+    const responseArea = document.getElementById('responseArea');
+    responseArea.innerHTML = '⏳ Обработка запроса...';
 
-            addLog(`Команда: ${command}`, 'ОТПРАВЛЕНО');
+    addLog(`Команда: ${command}`, 'ОТПРАВЛЕНО');
 
-            try {
-                const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/8c0f1b8362ba9342cc15bd60b2362453/ai/run/@cf/meta/llama-2-7b-chat-int8`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': 'Bearer CqmAJj_6ygvaiWWevbHeCQjc3afYj3GZYHrTsYv-',
-                        'Content-Type': 'application/json'
+    try {
+        // Используем бесплатный CORS-прокси
+        const proxy = 'https://cors-anywhere.herokuapp.com/';
+        const url = 'https://api.cloudflare.com/client/v4/accounts/8c0f1b8362ba9342cc15bd60b2362453/ai/run/@cf/meta/llama-2-7b-chat-int8';
+        
+        const response = await fetch(proxy + url, {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer CqmAJj_6ygvaiWWevbHeCQjc3afYj3GZYHrTsYv-',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                messages: [
+                    {
+                        role: 'system',
+                        content: 'Ты — GENSEC.vs, система кибербезопасности ФБР. Отвечай кратко, по-военному.'
                     },
-                    body: JSON.stringify({
-                        messages: [
-                            {
-                                role: 'system',
-                                content: 'Ты — GENSEC.vs, система кибербезопасности ФБР. Отвечай кратко, по-военному. Твоя задача — защищать SAnet.OS от хакеров.'
-                            },
-                            {
-                                role: 'user',
-                                content: command
-                            }
-                        ]
-                    })
-                });
+                    {
+                        role: 'user',
+                        content: command
+                    }
+                ]
+            })
+        });
 
-                const data = await response.json();
-                const aiResponse = data.result.response;
-                
-                responseArea.innerHTML = `> ${aiResponse}`;
-                addLog(`Ответ ИИ: ${aiResponse.substring(0, 50)}...`, 'ПОЛУЧЕНО');
+        const data = await response.json();
+        const aiResponse = data.result.response;
+        
+        responseArea.innerHTML = `> ${aiResponse}`;
+        addLog(`Ответ ИИ: ${aiResponse.substring(0, 50)}...`, 'ПОЛУЧЕНО');
 
-            } catch (error) {
-                responseArea.innerHTML = '❌ Ошибка связи. Использую резервный режим.\n\n' + getFallbackResponse(command);
-                addLog('Ошибка Cloudflare', 'РЕЗЕРВ');
-            }
+    } catch (error) {
+        responseArea.innerHTML = '❌ Ошибка связи. Но резерв работает!\n\n' + getFallbackResponse(command);
+        addLog('Ошибка Cloudflare', 'РЕЗЕРВ');
+    }
 
-            input.value = '';
-        }
+    input.value = '';
+}
 
         // Резервные ответы
         function getFallbackResponse(cmd) {
